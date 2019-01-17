@@ -1,4 +1,5 @@
 #include<string>
+#include<cstdlib>
 #include<fstream>
 #include <locale.h>
 #include <clocale>
@@ -129,6 +130,118 @@ void GruposProfesorEspecifico(string profesor)
 
 	if (!maestroExiste)
 	{
-		cout << "Lo siento esta profesor no tiene ningun grupo a su mando" << endl;
+		cout << "Lo siento este profesor no tiene ningun grupo a su mando" << endl;
 	}
+}
+
+void MateriasConMismoCIP(string CIP) 
+{
+	bool encontrado = false;
+	ifstream archivoMaterias;
+	string dato;
+	string header;
+	string dato2;
+	archivoMaterias.open("MateriasCVA.csv");
+	getline(archivoMaterias, header);
+	cout << header << endl;
+
+
+
+	while (!archivoMaterias.eof())
+	{
+		getline(archivoMaterias, dato);
+		dato2 = dato;
+		dato2.erase(0, dato2.find(',')+1);
+		dato2.erase(0, dato2.find(',')+1);
+		dato2 = dato2.substr(0, dato2.find(','));
+		if (dato2 == CIP) 
+		{
+			cout << dato << endl;
+			encontrado = true;
+		}
+	}
+	archivoMaterias.close();
+
+	if (!encontrado) 
+	{
+		cout << "Lo siento ninguna materia tiene ese CIP" << endl;
+	}
+}
+
+void ProfesoresConMismoCIP(string CIP)
+{
+	bool encontrado = false;
+	ifstream archivoProfesores;
+	string dato;
+	string header;
+
+	string dato2;
+	archivoProfesores.open("ProfesoresCVA.csv");
+	getline(archivoProfesores, header);
+	cout << header << endl;
+
+	while (!archivoProfesores.eof())
+	{
+		getline(archivoProfesores, dato);
+		dato2 = dato;
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2 = dato2.substr(0, dato2.find(','));
+		if (dato2 == CIP)
+		{
+			cout << dato << endl;
+			encontrado = true;
+		}
+	}
+	archivoProfesores.close();
+
+	if (!encontrado)
+	{
+		cout << "Lo siento ningun profesor tiene ese CIP" << endl;
+	}
+}
+
+void AltaProfesor() 
+{
+	string nominaNueva;
+	string nombreNuevo;
+	string cipNuevo;
+	bool repetido = true;
+
+	ifstream archivoProfesoresInput;
+	string dato;
+	archivoProfesoresInput.open("ProfesoresCVA.csv");
+
+	while (repetido) 
+	{
+		repetido = false;
+		cout << "Ingresa la nomina a registrar" << endl;
+		cin >> nominaNueva;
+
+	
+		while (!archivoProfesoresInput.eof())
+		{
+			getline(archivoProfesoresInput, dato);
+			dato = dato.substr(0, dato.find(','));
+			if (dato == nominaNueva)
+			{
+				repetido = true;
+				cout << "Esa nomina ya esta dada de alta" << endl << endl;
+			}
+		}
+		archivoProfesoresInput.close();
+	}
+
+	getline(cin, nombreNuevo);
+	cout << "Ingresa el nombre a registrar" << endl;
+	getline(cin,nombreNuevo);
+	cout << "Ingresa el CIP a registrar" << endl;
+	cin >> cipNuevo;
+
+	ofstream archivoProfesoresOutput;
+	archivoProfesoresOutput.open("ProfesoresCVA.csv",ios::out|ios::app);
+
+	archivoProfesoresOutput <<endl<< nominaNueva << ',' << nombreNuevo << ',' << cipNuevo << endl;
+	archivoProfesoresOutput.close();
+
 }

@@ -1,16 +1,16 @@
 Clave,Nombre,CIP,Unidades,Programas Academicos,Requisitos
-1014,Historia,1000,8,LAE,
-1011,Innovacion,1000,8,LAE,
-2014,Musica,2000,8,IMT,
-3019,Matematicas 2,3000,8,IMT ITC IDS,
+1014,Historia,1000,8,LAE,Ninguna
+1011,Innovacion,1000,8,LAE,Ninguna
+2014,Musica,2000,8,IMT,Ninguna
+3019,Matematicas 2,3000,8,IMT ITC IDS,Ninguna
 3020,Matematicas 1,3000,8,IMT ITC IDS,Matematicas 1
-4002,Animacion,4000,8,LAD,
-400,Fotografia,4000,8,LAD,
-4004,Guionismo,4000,8,LAD,
-6008,Sistemas operativos,6000,8,ITC,
-6011,Sistemas inteligentes,6000,8,ITC,
+4002,Animacion,4000,8,LAD,Ninguna
+400,Fotografia,4000,8,LAD,Ninguna
+4004,Guionismo,4000,8,LAD,Ninguna
+6008,Sistemas operativos,6000,8,ITC,Ninguna
+6011,Sistemas inteligentes,6000,8,ITC,Ninguna
 6009,Redes industriales,6000,8,ITC,Redes 2
-6023,Base de Datos,6000,8,ITC,
-6024,Desarrollo de Videojuegos,6000,8,ITC,
+6023,Base de Datos,6000,8,ITC,Ninguna
+6024,Desarrollo de Videojuegos,6000,8,ITC,Ninguna
 6025,Programacion Orientada A Objetos,6000,8,ITC,Fundamentos de Programacion
 703,Microbiologia,7000,8,IBT,Biologia
