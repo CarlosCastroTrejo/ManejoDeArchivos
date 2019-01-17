@@ -18,7 +18,7 @@ int main()
 		cout << "\n¿Que deseas hacer?" << endl;
 		cout << "1.- Dar de alta" << endl;
 		cout << "2.- Dar de baja" << endl;
-		cout << "3.- Hace modificacion" << endl;
+		cout << "3.- Hacer modificacion" << endl;
 		cout << "4.- Ver catalogos" << endl;
 		cout << "5.- Mostrar todos los grupos de una materia especifica" << endl;
 		cout << "6.- Mostrar todos los grupos de un profesor especifico" << endl;
@@ -96,6 +96,35 @@ int main()
 		}
 		case(3):
 		{
+			int catalogo = 0;
+			cout << "1.- Catalogo Materias" << endl;
+			cout << "2.- Catalogo Profesores" << endl;
+			cout << "3.- Catalogo Grupos" << endl;
+			cin >> catalogo;
+
+			switch (catalogo)
+			{
+			case(1):
+			{
+				ModificacionMateria();
+				break;
+			}
+			case(2):
+			{
+				ModificacionProfesor();
+				break;
+			}
+			case(3):
+			{
+				ModificacionGrupo();
+				break;
+			}
+			default:
+			{
+				break;
+			}
+			}
+			break;
 			break;
 		}
 

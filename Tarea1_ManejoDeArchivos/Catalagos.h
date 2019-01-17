@@ -426,7 +426,7 @@ void BajaGrupo()
 	ifstream archivoGrupos;
 	string dato;
 	string header;
-	int numeroLista = 1;
+	int numeroLista = 0;
 	archivoGrupos.open("GruposCVA.csv");
 	getline(archivoGrupos, header);
 	cout << header << endl;
@@ -434,10 +434,10 @@ void BajaGrupo()
 
 	while (!archivoGrupos.eof())
 	{
+		numeroLista++;
 		getline(archivoGrupos, dato);
 		cout << numeroLista << ".- " << dato << endl;
 		datos.push_back(dato);
-		numeroLista++;
 	}
 	archivoGrupos.close();
 
@@ -446,12 +446,12 @@ void BajaGrupo()
 
 	ofstream archivoGruposOutput;
 	archivoGruposOutput.open("GruposCVA.csv");
-	archivoGruposOutput << header << endl;
+	archivoGruposOutput << header;
 	for (int x = 0; x < datos.size(); x++)
 	{
 		if (x != claveBaja - 1) 
 		{
-			archivoGruposOutput << datos[x] << endl;
+			archivoGruposOutput << endl << datos[x];
 		}
 	}
 	archivoGruposOutput.close();
@@ -598,4 +598,249 @@ void BajaProfesor()
 			cout << "Lo siento este profesor no puede ser dado de baja ya que existe no existe en el catalogo de profesores" << endl;
 		}
 	}
+}
+
+void ModificacionGrupo() 
+{
+	cout << endl;
+	int claveBaja;
+	vector<string>datos;
+
+	ifstream archivoGrupos;
+	string dato;
+	string header;
+	int numeroLista = 0;
+	archivoGrupos.open("GruposCVA.csv");
+	getline(archivoGrupos, header);
+	cout << header << endl;
+
+
+	while (!archivoGrupos.eof())
+	{
+		numeroLista++;
+		getline(archivoGrupos, dato);
+		cout << numeroLista << ".- " << dato << endl;
+		datos.push_back(dato);
+	}
+	archivoGrupos.close();
+
+	cout << "Porfavor ingresa el numero de la lista del grupo que deseas modificar" << endl;
+	cin >> claveBaja;
+
+	if (claveBaja >= 1 && claveBaja <= numeroLista) 
+	{
+		
+		cout << endl<< "Este es el grupo que quieres modificar:"<<endl;
+		cout << header << endl;
+		cout << datos[claveBaja - 1] << endl << endl;;
+
+		bool profesorExiste = false;
+		bool materiaExiste = false;
+		string claveMateria;
+		string nominaNueva;
+		string numeroGrupo = "0";
+		string horario;
+		string salon;
+		string semestre;
+
+		ifstream archivoProfesoresInput;
+		string dato;
+
+		ifstream archivoMateriasInput;
+		string dato2;
+
+		while (!profesorExiste && !materiaExiste)
+		{
+			archivoProfesoresInput.open("ProfesoresCVA.csv");
+			archivoMateriasInput.open("MateriasCVA.csv");
+
+			cout << "Ingresa la clave de la materia por la cual vas a cambiar" << endl;
+			cin >> claveMateria;
+			cout << "Ingresa la nomina del profesor de la materia por la cual vas a cambiar" << endl;
+			cin >> nominaNueva;
+
+
+			while (!archivoProfesoresInput.eof())
+			{
+				getline(archivoProfesoresInput, dato);
+				dato = dato.substr(0, dato.find(','));
+				if (dato == nominaNueva)
+				{
+					profesorExiste = true;
+				}
+
+			}
+
+			while (!archivoMateriasInput.eof())
+			{
+				getline(archivoMateriasInput, dato2);
+				dato2 = dato2.substr(0, dato2.find(','));
+				if (dato2 == claveMateria)
+				{
+					materiaExiste = true;
+				}
+			}
+
+
+			if (!materiaExiste && !profesorExiste)
+			{
+				cout << "La clave de la materia ni la nomina del profesor existen, intentalo de nuevo" << endl;
+				profesorExiste = false;
+				materiaExiste = false;
+			}
+			else if (!materiaExiste)
+			{
+				cout << "La clave de la materia no existe,intentalo de nuevo" << endl;
+				profesorExiste = false;
+				materiaExiste = false;
+			}
+			else if (!profesorExiste)
+			{
+				cout << "La nomina del profesor no existe,intentalo de nuevo" << endl;
+				profesorExiste = false;
+				materiaExiste = false;
+			}
+			archivoProfesoresInput.close();
+			archivoMateriasInput.close();
+		}
+
+
+		while (stoi(numeroGrupo) < 1 || stoi(numeroGrupo) > 10)
+		{
+			cout << "Ingresa el numero del grupo del grupo por el cual vas a cambiar" << endl;
+			cin >> numeroGrupo;
+			if (stoi(numeroGrupo) < 1 || stoi(numeroGrupo) > 10)
+			{
+				cout << "El numero del grupo debe de ser entre 1 y 10,intentalo de nuevo" << endl << endl;
+			}
+
+
+		}
+
+		getline(cin, horario);
+		cout << "Ingresa el horario del grupo por el cual vas a cambiar" << endl;
+		getline(cin, horario);
+		cout << "Ingresa el salon del grupo por el cual vas a cambiar" << endl;
+		cin >> salon;
+		cout << "Ingresa el semestre del grupo por el cual vas a cambiar" << endl;
+		cin >> semestre;
+
+		string nuevoGrupo = claveMateria + ',' + nominaNueva + ',' + numeroGrupo + ',' + horario + ',' + salon + ',' + semestre;
+
+		ofstream archivoGruposOutput;
+		archivoGruposOutput.open("GruposCVA.csv");
+		archivoGruposOutput << header ;
+		for (int x = 0; x < datos.size(); x++) 
+		{
+			if (x == claveBaja - 1) 
+			{
+				archivoGruposOutput <<endl<< nuevoGrupo;
+			}
+			else 
+			{
+				archivoGruposOutput <<endl<< datos[x];
+			}
+			
+		}
+
+		archivoGruposOutput.close();
+
+		cout << "Listo el grupo ha sido modificado exitosamente" << endl;
+	
+	}
+	else
+	{
+		cout << "Lo siento, ese no es un elemento de la lista" << endl << endl;
+	}
+
+
+
+}
+
+void ModificacionMateria() 
+{
+	cout << endl;
+	string claveBaja;
+	cout << "Porfavor ingresa la clave de la materia que deseas cambiar"<< endl;
+	cin >> claveBaja;
+
+	vector<string> datos;
+	bool encontradoEnMaterias = false;
+
+	ifstream archivoMaterias;
+	string dato;
+	string dato2;
+	string header;
+	int numeroEnArregloEncontrado = 0;
+	archivoMaterias.open("MateriasCVA.csv");
+	getline(archivoMaterias, header);
+
+	while (!archivoMaterias.eof())
+	{
+		getline(archivoMaterias, dato);
+		dato2 = dato;
+		dato2 = dato2.substr(0, dato2.find(','));
+		if (dato2 == claveBaja)
+		{
+			encontradoEnMaterias = true;
+			datos.push_back(dato);
+			numeroEnArregloEncontrado = datos.size() - 1;
+		}
+		else
+		{
+			datos.push_back(dato);
+		}
+	}
+	archivoMaterias.close();
+
+	if (encontradoEnMaterias)
+	{
+		cout << endl << "Esta es la materia que quieres modificar:" << endl;
+		cout << header << endl;
+		cout << datos[numeroEnArregloEncontrado] << endl;
+		string nombreNuevo;
+		string cipNuevo;
+		string unidadesNuevo;
+		string programasNuevos;
+		string requisitosNuevos;
+
+		getline(cin, nombreNuevo);
+		cout << "Ingresa el nombre de la materia por el cual vas a cambiar" << endl;
+		getline(cin, nombreNuevo);
+		cout << "Ingresa el CIP de la materia por el cual vas a cambiar" << endl;
+		cin >> cipNuevo;
+		cout << "Ingresa las unidades de la materia por el cual vas a cambiar" << endl;
+		cin >> unidadesNuevo;
+		getline(cin, programasNuevos);
+		cout << "Ingresa los programas academicos de la materia por los cuales vas a cambiar" << endl;
+		getline(cin, programasNuevos);
+		cout << "Ingresa los requisitos de la materia por los cuales vas a cambiar" << endl;
+		cin >> requisitosNuevos;
+		string modificado = claveBaja + ',' + nombreNuevo + ',' + cipNuevo + ',' + unidadesNuevo + ',' + programasNuevos + ',' + requisitosNuevos;
+
+		datos[numeroEnArregloEncontrado] = modificado;
+
+		ofstream archivoMateriasOutput;
+		archivoMateriasOutput.open("MateriasCVA.csv");
+		for (int x = 0; x < datos.size(); x++)
+		{
+			
+			archivoMateriasOutput << datos[x] << endl;
+			
+		}
+
+		archivoMateriasOutput.close();
+		cout << "Listo, materia dada de baja exitosamente!" << endl << endl;
+	}
+	else
+	{
+		cout << "Lo siento esta materia no puede ser dada de baja ya que existe no existe en el catalogo de materias" << endl;
+	}
+
+
+}
+
+void ModificacionProfesor()
+{
+
 }
