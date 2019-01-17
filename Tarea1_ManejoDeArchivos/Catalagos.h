@@ -460,6 +460,7 @@ void BajaGrupo()
 
 void BajaMateria() 
 {
+	cout << endl;
 	string claveBaja;
 	bool materiaEncontradaGrupos = false;
 	cout << "Porfavor ingresa la clave de la materia que deseas dar de baja" << endl;
@@ -485,6 +486,116 @@ void BajaMateria()
 	}
 	else 
 	{
+		vector<string> datos;
+		bool encontradoEnMaterias = false;
+
+		ifstream archivoMaterias;
+		string dato2;
+		archivoMaterias.open("MateriasCVA.csv");
+
+		while (!archivoMaterias.eof())
+		{
+			getline(archivoMaterias, dato);
+			dato2 = dato;
+			dato2 = dato2.substr(0, dato2.find(','));
+			if (dato2 == claveBaja) 
+			{
+				encontradoEnMaterias = true;
+			}
+			else 
+			{
+				datos.push_back(dato);
+			}
+		}
+		archivoMaterias.close();
+
+		if (encontradoEnMaterias) 
+		{
+			ofstream archivoMateriasOutput;
+			archivoMateriasOutput.open("MateriasCVA.csv");
+			for (int x = 0; x < datos.size(); x++) 
+			{
+				archivoMateriasOutput << datos[x] << endl;
+			}
+
+			archivoMateriasOutput.close();
+			cout << "Listo, materia dada de baja exitosamente!" << endl << endl;
+		}
+		else 
+		{
+			cout << "Lo siento esta materia no puede ser dada de baja ya que existe no existe en el catalogo de materias" << endl;
+		}
 	
+	}
+}
+
+void BajaProfesor() 
+{
+	cout << endl;
+	string claveBaja;
+	bool profesorEncontradoGrupos = false;
+	cout << "Porfavor ingresa la nomina del profesor que deseas dar de baja" << endl;
+	cin >> claveBaja;
+
+	ifstream archivoGrupos;
+	string dato;
+	archivoGrupos.open("GruposCVA.csv");
+	while (!archivoGrupos.eof())
+	{
+		getline(archivoGrupos, dato);
+		dato.erase(0, dato.find(',') + 1);
+		dato = dato.substr(0, dato.find(','));
+		if (dato == claveBaja)
+		{
+			profesorEncontradoGrupos = true;
+		}
+	}
+	archivoGrupos.close();
+
+	if (profesorEncontradoGrupos)
+	{
+		cout << "Lo siento este profesor no puede ser dado de baja ya que existe un grupo con este profesor" << endl;
+	}
+	else
+	{
+		vector<string> datos;
+		bool encontradoEnProfesores = false;
+
+		ifstream archivoProfesores;
+		string dato2;
+		archivoProfesores.open("ProfesoresCVA.csv");
+
+		while (!archivoProfesores.eof())
+		{
+			getline(archivoProfesores, dato);
+			dato2 = dato;
+			dato2 = dato2.substr(0, dato2.find(','));
+			if (dato2 == claveBaja)
+			{
+				encontradoEnProfesores = true;
+			}
+			else
+			{
+				datos.push_back(dato);
+			}
+		}
+		archivoProfesores.close();
+
+		if (encontradoEnProfesores)
+		{
+			ofstream archivoProfesoresOutput;
+			archivoProfesoresOutput.open("ProfesoresCVA.csv");
+			for (int x = 0; x < datos.size(); x++)
+			{
+				archivoProfesoresOutput << datos[x] << endl;
+			}
+
+			archivoProfesoresOutput.close();
+			cout << "Listo, profesor dado de baja exitosamente!" << endl << endl;
+		}
+		else
+		{
+			cout << "Lo siento este profesor no puede ser dado de baja ya que existe no existe en el catalogo de profesores" << endl;
+		}
 	}
 }

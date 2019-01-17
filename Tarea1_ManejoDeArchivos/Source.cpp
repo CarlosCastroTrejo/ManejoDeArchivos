@@ -74,10 +74,12 @@ int main()
 			{
 			case(1):
 			{
+				BajaMateria();
 				break;
 			}
 			case(2):
 			{
+				BajaProfesor();
 				break;
 			}
 			case(3):
