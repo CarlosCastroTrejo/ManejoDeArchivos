@@ -41,7 +41,7 @@ int main()
 			{
 			case(1):
 			{
-
+				AltaMateria();
 				break;
 			}
 			case(2):
@@ -51,7 +51,7 @@ int main()
 			}
 			case(3):
 			{
-
+				AltaGrupo();
 				break;
 			}
 			default:
@@ -64,7 +64,32 @@ int main()
 		}
 		case(2):
 		{
-			
+			int catalogo = 0;
+			cout << "1.- Catalogo Materias" << endl;
+			cout << "2.- Catalogo Profesores" << endl;
+			cout << "3.- Catalogo Grupos" << endl;
+			cin >> catalogo;
+
+			switch (catalogo)
+			{
+			case(1):
+			{
+				break;
+			}
+			case(2):
+			{
+				break;
+			}
+			case(3):
+			{
+				BajaGrupo();
+				break;
+			}
+			default:
+			{
+				break;
+			}
+			}
 			break;
 		}
 		case(3):
