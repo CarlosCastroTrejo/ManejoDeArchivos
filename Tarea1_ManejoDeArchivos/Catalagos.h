@@ -830,11 +830,11 @@ void ModificacionMateria()
 		}
 
 		archivoMateriasOutput.close();
-		cout << "Listo, materia dada de baja exitosamente!" << endl << endl;
+		cout << "Listo, materia modificada exitosamente!" << endl << endl;
 	}
 	else
 	{
-		cout << "Lo siento esta materia no puede ser dada de baja ya que existe no existe en el catalogo de materias" << endl;
+		cout << "Lo siento esta materia no puede ser modificada ya que no existe en el catalogo de materias" << endl;
 	}
 
 
@@ -842,5 +842,157 @@ void ModificacionMateria()
 
 void ModificacionProfesor()
 {
+
+	cout << endl;
+	string claveBaja;
+	cout << "Porfavor ingresa la nomina del profesor que deseas cambiar" << endl;
+	cin >> claveBaja;
+
+	vector<string> datos;
+	bool encontradoEnProfesores = false;
+
+	ifstream archivoProfesores;
+	string dato;
+	string dato2;
+	string header;
+	int numeroEnArregloEncontrado = 0;
+	archivoProfesores.open("ProfesoresCVA.csv");
+	getline(archivoProfesores, header);
+
+	while (!archivoProfesores.eof())
+	{
+		getline(archivoProfesores, dato);
+		dato2 = dato;
+		dato2 = dato2.substr(0, dato2.find(','));
+		if (dato2 == claveBaja)
+		{
+			encontradoEnProfesores = true;
+			datos.push_back(dato);
+			numeroEnArregloEncontrado = datos.size() - 1;
+		}
+		else
+		{
+			datos.push_back(dato);
+		}
+	}
+	archivoProfesores.close();
+
+	if (encontradoEnProfesores)
+	{
+		cout << endl << "Este es el profesor que vas a modificar:" << endl;
+		cout << header << endl;
+		cout << datos[numeroEnArregloEncontrado] << endl;
+
+		string nombreNuevo;
+		string cipNuevo;
+
+		getline(cin, nombreNuevo);
+		cout << "Ingresa el nombre a registrar" << endl;
+		getline(cin, nombreNuevo);
+		cout << "Ingresa el CIP a registrar" << endl;
+		cin >> cipNuevo;
+		
+
+		string modificado = claveBaja + ',' + nombreNuevo + ',' + cipNuevo;
+
+		datos[numeroEnArregloEncontrado] = modificado;
+
+		ofstream archivoProfesoresOutput;
+		archivoProfesoresOutput.open("ProfesoresCVA.csv");
+		for (int x = 0; x < datos.size(); x++)
+		{
+			archivoProfesoresOutput << datos[x] << endl;
+		}
+
+		archivoProfesoresOutput.close();
+		cout << "Listo,profesor modificado exitosamente" << endl << endl;
+	}
+	else
+	{
+		cout << "Lo siento este profesor no puede ser modificado ya que su nomina no existe en el catalogo de profesores" << endl;
+	}
+
+
+}
+
+void MismoHorario() 
+{
+	cout << endl;
+	string horario;
+	bool horarioExiste = false;
+	getline(cin, horario);
+	cout << "Escribe el horario de los grupos que quieres desplegar" << endl;
+	getline(cin, horario);
+	cout << endl;
+
+	ifstream archivoGrupos;
+	string dato;
+	string dato2;
+	string header;
+	archivoGrupos.open("GruposCVA.csv");
+	getline(archivoGrupos, header);
+	cout << header << endl;
+
+	while (!archivoGrupos.eof())
+	{
+		getline(archivoGrupos, dato);
+		dato2 = dato;
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2 = dato2.substr(0, dato2.find(','));
+		if (dato2 == horario)
+		{
+			horarioExiste = true;
+			cout << dato << endl;
+		}
+	}
+	archivoGrupos.close();
+
+	if (!horarioExiste)
+	{
+		cout << "Lo siento no existe ningun grupo que este asignado a este horario" << endl;
+	}
+
+}
+
+void MismoSalon() 
+{
+	cout << endl;
+	string salon;
+	bool salonExiste = false;
+	cout << "Escribe el salon de los grupos que quieres desplegar" << endl;
+	cin >> salon;
+	cout << endl;
+
+	ifstream archivoGrupos;
+	string dato;
+	string dato2;
+	string header;
+	archivoGrupos.open("GruposCVA.csv");
+	getline(archivoGrupos, header);
+	cout << header << endl;
+
+	while (!archivoGrupos.eof())
+	{
+		getline(archivoGrupos, dato);
+		dato2 = dato;
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2.erase(0, dato2.find(',') + 1);
+		dato2 = dato2.substr(0, dato2.find(','));
+		if (dato2 == salon) 
+		{
+			salonExiste = true;
+			cout << dato << endl;
+		}
+	}
+	archivoGrupos.close();
+
+	if (!salonExiste) 
+	{
+		cout << "Lo siento no existe ningun grupo que este asignado a este salon" << endl;
+	}
 
 }

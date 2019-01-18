@@ -22,7 +22,7 @@ int main()
 		cout << "4.- Ver catalogos" << endl;
 		cout << "5.- Mostrar todos los grupos de una materia especifica" << endl;
 		cout << "6.- Mostrar todos los grupos de un profesor especifico" << endl;
-		cout << "7.- " << endl;
+		cout << "7.- Mostrar todos los grupos con un mismo horario o un mismo salon" << endl;
 		cout << "8.- Mostrar profesores o materias con el mismo CIP" << endl;
 		cout << "9.- Salir" << endl;
 		cin >> decision;
@@ -152,6 +152,28 @@ int main()
 
 		case(7):
 		{
+			int catalogo = 0;
+			cout << "1.- Mismo horario" << endl;
+			cout << "2.- Mismo salon" << endl;
+			cin >> catalogo;
+			switch (catalogo)
+			{
+			case(1): 
+			{
+				MismoHorario();
+				break;
+			}
+			case(2):
+			{
+				MismoSalon();
+				break;
+			}
+			default: 
+			{
+				break;
+			}
+				
+			}
 
 			break;
 		}

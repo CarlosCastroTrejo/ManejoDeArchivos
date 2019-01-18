@@ -1,10 +1,9 @@
-Clave,Nombre,CIP,Unidades,Programas Academicos,Requisitos
 1014,Historia,1000,8,LAE,Ninguna
 1011,Innovacion,1000,8,LAE,Ninguna
 2014,Musica,2000,8,IMT,Ninguna
 3019,Matematicas 2,3000,8,IMT ITC IDS,Ninguna
 3020,Matematicas 1,3000,8,IMT ITC IDS,Matematicas 1
-4000,Fotografia,4000,8,LAD,Ninguna
+4000,Comunicacion,4000,9,LAE,Ninguna
 4004,Guionismo,4000,8,LAD,Ninguna
 6008,Sistemas operativos,6000,8,ITC,Ninguna
 6011,Sistemas inteligentes,6000,8,ITC,Ninguna
